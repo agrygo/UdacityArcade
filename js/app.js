@@ -2,6 +2,7 @@
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.speed = Math.floor(Math.random() * 250 + 1);
     this.x = x;
     this.y = y;
     // The image/sprite for our enemies, this uses
@@ -15,7 +16,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-};
+    //this.x = this.x + (dt * 50);
+
+    this.x += dt * this.speed;
+    if (this.x >= 505) {
+        this.x = 0;
+    }
+ };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -30,28 +37,46 @@ var Player = function(x, y) {
     this.x = x;
     this.y = y;
 };
-Player.prototype.update = function(dt){
 
+Player.prototype.update = function(){
+	if (this.y > 435 || this.y < 45){
+		this.y = 435
+	} else if (this.x > 410 || this.x < -10){
+		this.x = 200
+	}
 };
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
 };
-Player.prototype.handleInput = function() {
 
+Player.prototype.handleInput = function(keyCode) {
+	    if (keyCode == "left") {
+	        this.x = this.x-30;
+	    } else if (keyCode == "right") {
+	    	this.x = this.x+30;
+	    } else if (keyCode == "up"){
+	    	this.y = this.y-30;
+	    } else if (keyCode == "down"){
+	    	this.y  = this.y+30;
+	    }
+	    console.log("x " + this.x + "y" + this.y);
 };
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(10,50), new Enemy(10, 100)];
+var allEnemies = [new Enemy(10,60), new Enemy(10, 200), new Enemy(150, 125)];
 var player = new Player(200, 435);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+
+
+
         37: 'left',
         38: 'up',
         39: 'right',
