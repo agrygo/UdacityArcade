@@ -63,7 +63,6 @@ Player.prototype.handleInput = function(keyCode) {
 	    } else if (keyCode == "down"){
 	    	this.y  = this.y+30;
 	    }
-	    console.log("x " + this.x + "y" + this.y);
 };
 
 //check for Enemy - Player collision
@@ -74,7 +73,6 @@ function checkCollisions (enemy) {
 			allEnemies[i].x + 85 > player.x &&
 			allEnemies[i].y < player.y + 85 &&
 			50 + allEnemies[i].y > player.y){
-			console.log("collision detected");
 			return true;
 		}
 	}
