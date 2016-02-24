@@ -37,15 +37,15 @@ var Player = function(x, y) {
 };
 
 Player.prototype.update = function(){
-	if (this.y > 435 || this.y < 45){
-		this.y = 435
+	if (this.y > 395 || this.y <= -5){
+		this.y = 395
 	} else if (this.x > 410 || this.x < -10){
 		this.x = 200
 	}
 	//check for collisions
-	if (checkCollisions(allEnemies) === true) {
+	if (this.checkCollisions(allEnemies) === true) {
 		this.x = 200;
-		this.y = 435;
+		this.y = 395;
 	}
 };
 
@@ -55,24 +55,24 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(keyCode) {
 	    if (keyCode == "left") {
-	        this.x = this.x-30;
+	        this.x = this.x-101;
 	    } else if (keyCode == "right") {
-	    	this.x = this.x+30;
-	    } else if (keyCode == "up"){
-	    	this.y = this.y-30;
+	    	this.x = this.x+101;
+	   	} else if (keyCode == "up"){
+	    	this.y = this.y-83;
 	    } else if (keyCode == "down"){
-	    	this.y  = this.y+30;
+	    	this.y  = this.y+83;
 	    }
 };
 
 //check for Enemy - Player collision
 //101 x 171 img size
-function checkCollisions (enemy) {
-	for (var i=0; i < allEnemies.length; i++){
-		if (allEnemies[i].x < player.x + 50 &&
-			allEnemies[i].x + 85 > player.x &&
-			allEnemies[i].y < player.y + 85 &&
-			50 + allEnemies[i].y > player.y){
+Player.prototype.checkCollisions = function(enemy) {
+	for (var i=0, il=allEnemies.length; i < il; i++){
+		if (allEnemies[i].x < this.x + 50 &&
+			allEnemies[i].x + 85 > this.x &&
+			allEnemies[i].y < this.y + 85 &&
+			50 + allEnemies[i].y > this.y){
 			return true;
 		}
 	}
@@ -82,7 +82,7 @@ function checkCollisions (enemy) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [new Enemy(10, 60), new Enemy(10, 200), new Enemy(150, 125)];
-var player = new Player(200, 435);
+var player = new Player(200, 395);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

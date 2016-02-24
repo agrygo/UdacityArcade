@@ -1,3 +1,10 @@
 body {
     text-align: center;
+    background-color: #060680;
+}
+
+.welcome {
+	font-family: fantasy;
+	font-size: 30px;
+	color: #fff;
 }
